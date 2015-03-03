@@ -22,14 +22,14 @@ public class EventDateSerializer implements JsonSerializer<EventDateModel>{
 		final JsonObject       obj     = new JsonObject();
 		final SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-		final String date_formated = eventdate.date == null ? "" : formato.format(eventdate.date);
+		final String date_formated = eventdate.eventdate == null ? "" : formato.format(eventdate.eventdate);
 
 		obj.addProperty("id", eventdate.id);
 		obj.addProperty("title", eventdate.title);
-		obj.addProperty("desc", eventdate.desc);
+		obj.addProperty("desc", eventdate.description);
 		obj.addProperty("local", eventdate.local);
 		obj.addProperty("date", date_formated);
-		obj.addProperty("time", eventdate.time);
+		obj.addProperty("time", eventdate.eventtime);
 		obj.addProperty("remind", eventdate.remind);
 
 		return obj;
