@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta charset="UTF-8">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link href="@{'/public/css/eventapp/stylesheets/screen.css'}" media="screen, projection" rel="stylesheet" type="text/css" />
+        <link href="@{'/public/css/eventapp/stylesheets/print.css'}" media="print" rel="stylesheet" type="text/css" />
+        <link href="@{'/public/css/jquery-ui.min.css'}" rel="stylesheet" type="text/css" />
+        <link href="@{'/public/css/jquery-ui.structure.min.css'}" rel="stylesheet" type="text/css" />
+        <link href="@{'/public/css/jquery-ui.theme.css'}" rel="stylesheet" type="text/css" />
+        <link href="@{'/public/css/ionicons.css'}" media="all" rel="stylesheet" type="text/css" />
+        <!--[if IE]>
+            <link href="@{'/public/css/eventapp/stylesheets/ie.css'}" media="screen, projection" rel="stylesheet" type="text/css" />
+        <![endif]-->
+
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+    </head>
+    <body ng-app="EventApp">
+        #{doLayout /}
+
+        <script src="@{'/public/js/angular.1.3.13.min.js'}" type="text/javascript" charset="UTF-8"></script>
+        <script src="@{'/public/js/jquery-2.1.3.min.js'}" type="text/javascript" charset="UTF-8"></script>
+        <script src="@{'/public/js/jquery-ui.min.js'}" type="text/javascript" charset="UTF-8"></script>
+        <script src="@{'/public/js/main.js'}" type="text/javascript" charset="UTF-8"></script>
+    </body>
+</html>

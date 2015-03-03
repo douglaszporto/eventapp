@@ -1,0 +1,70 @@
+#{extends 'main.html' /}
+#{set title:'Event App' /}
+
+<div ng-controller="CalendarCtrl" class="centralize" id="calendar-wrapper" event-animable="1">
+	<h1>Eventos agendados</h1>
+	<table id="calendar" ng-init="initialize()" ng-class="{'active':view.visible}">
+		<tr>
+			<td class="header" id="month-name" colspan="5">{{now.monthName}}/{{now.todayYear}}</td>
+			<td class="header ion-chevron-left action" ng-click="prevMonth()">&nbsp;</td>
+			<td class="header ion-chevron-right action" ng-click="nextMonth()">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="dayname">Dom</td>
+			<td class="dayname">Seg</td>
+			<td class="dayname">Ter</td>
+			<td class="dayname">Qua</td>
+			<td class="dayname">Qui</td>
+			<td class="dayname">Sex</td>
+			<td class="dayname">Sáb</td>
+		</tr>
+		<tr ng-repeat="week in now.calendar">
+			<td class="day action" ng-repeat="date in week" ng-click="select(date.date)" ng-class="{'other-month':date.otherMonth,'is-today':date.isToday,'selected':date.timestamp == now.selectedTime}">{{date.day}}</td>
+		</tr>
+	</table>
+	<div id="date-details">
+		<button class="btn-action-right btn-blue detail-button" ng-click="openAddForm()">Novo Evento</button>
+		<div id="date-details-info">
+			<div id="date-details-day" ng-class="{'active':view.details}">{{now.selectedDate.getDate()}}</div>
+			<div id="date-details-dayname" ng-class="{'active':view.details}">
+				<span>{{getWeekName(now.selectedDate.getDay())}}</span><br/>
+				<span>{{now.monthName}}/{{now.todayYear}}</span>
+			</div><br/>
+		</div>
+		<div id="date-details-eventlist">
+			<div id="date-details-eventlist-loading" ng-class="{'active':$root.loadingEvents}">A carregar eventos</div>
+			<div ng-repeat="event in eventlist" class="date-details-event-wrapper" ng-class="{'active':!$root.loadingEvents}" ng-click="editEvent(event.id)">
+				<div class="date-details-event-desc">{{event.title}}</div>
+				<div class="date-details-event-time">{{event.time}}</div><br />
+			</div>
+		</div>
+	</div>
+	<br />
+	<event-modal title="Novo Evento">
+		<div id="modal-loading" ng-class="{'active':$root.loadingModal}"><span>A carregar</span></div>
+		<form action="#" method="POST" id="mainform">
+			<input type="hidden" ng-model="modal.id" name="mainform-id" id="mainform-id"/>
+			<label for="mainform-title">Evento</label>
+			<input type="text" ng-model="modal.title" name="mainform-title" id="mainform-title"/><br />
+			<label for="mainform-desc">Descrição</label>
+			<input type="text" ng-model="modal.desc" name="mainform-desc" id="mainform-desc"/><br />
+			<label for="mainform-local">Local</label>
+			<input type="text" ng-model="modal.local" name="mainform-local" id="mainform-local"/><br />
+			<label for="mainform-date">Data</label>
+			<div id="mainform-date-wrapper">
+				<input type="text" ng-model="modal.date" name="mainform-date" id="mainform-date" event-datepicker="1"/><input type="text" ng-model="modal.time" name="mainform-time" id="mainform-time" event-timer="1"/><select ng-model="modal.remind" name="mainform-remind" id="mainform-remind">
+					<option value="2">Lembrar 2 horas antes</option>
+					<option value="5">Lembrar 5 horas antes</option>
+					<option value="24">Lembrar 1 dia antes</option>
+					<option value="48">Lembrar 2 dias antes</option>
+				</select>
+			</div><br />
+		</form>
+		<br />
+		<div class="event-model-button-wrapper">
+			<button class="btn-action-right btn-grey modal-button" ng-click="close()">Cancelar</button>
+			<button class="btn-action-right btn-blue modal-button" ng-click="save()">Salvar</button>
+			<br />
+		</div>
+	</event-modal>
+</div>

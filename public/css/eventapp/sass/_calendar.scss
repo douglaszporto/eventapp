@@ -1,0 +1,82 @@
+#calendar-wrapper{
+	transition: all .3s ease;
+}
+
+#calendar{
+	box-sizing: border-box;
+	float:left;
+
+	tr {
+		box-sizing: border-box;
+
+		td{
+			box-sizing: border-box;
+		}
+	}
+
+	.header{
+		border: 0px;
+		box-sizing: border-box;
+		font-size: $font-size * 1.5;
+		height: $day-width * 0.8;
+		text-align: center;
+	}
+
+	.header:last-child{
+		border-right: 1px solid $line-color
+	}
+
+	#month-name{
+		text-align:left;
+		opacity: 0;
+		transition:opacity .3s ease;
+	}
+
+	.dayname{
+		border: 1px solid $line-color;
+		height: $day-width * 0.4;
+		text-align: center;
+		width:  $day-width;
+	}
+
+	.day{
+		border: 1px solid $line-color;
+		font-size: $font-size * 1.2;
+		height: $day-width * 0.8;
+		opacity: 0;
+		text-align: center;
+		transition:opacity .3s ease;
+		width:  $day-width;
+	}
+
+	.day.selected{
+		color: #337ab7;
+		font-weight: bold;
+		font-size: $font-size * 1.6;
+	}
+
+	.other-month{
+		color:#999;
+		font-size: $font-size;
+	}
+
+	.is-today{
+		font-size: $font-size * 1.4;
+		font-weight: bold;
+	}
+
+	.action{
+		cursor:pointer;
+		transition:opacity .3s ease, background-color .3s ease, font-size .1s ease;
+	}
+	.action:hover{
+		background-color:#7af;
+	}
+}
+
+#calendar.active{
+	#month-name,
+	.day{
+		opacity: 1;
+	}
+}

@@ -1,0 +1,53 @@
+#mainform{
+
+	margin-top: 15px;
+	width:      500px;
+
+	label{
+		box-sizing:    border-box;
+		float:         left;
+		height:        36px;
+		line-height:   36px;
+		padding-right: 10px;
+		text-align:    right;
+		width:         20%;
+	}
+
+	input,
+	select{
+		border:      1px solid $line-color;
+		box-sizing:  border-box;
+		font-family: $font-family;
+		font-size:   $font-size;
+		height:      25px;
+		margin:      5px 5% 0 0;
+		padding:     0 5px;
+		width:       75%;
+	}
+
+	select{
+		padding: 0;
+	}
+
+	#mainform-date-wrapper{
+		float:        left;
+		white-space:  nowrap;
+		width:        75%;
+		box-sizing:  border-box;
+	}
+
+	#mainform-date{
+		margin-right: 3%;
+		width:        33%;
+	}
+
+	#mainform-time{
+		margin-right: 3%;
+		width:        20%;
+	}
+
+	#mainform-remind{
+		margin-right: 0;
+		width:        41%;
+	}
+}

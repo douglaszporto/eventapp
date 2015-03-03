@@ -1,0 +1,38 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "mixins";
+@import "variables";
+
+body{
+	background-color: $bkg-color;
+	font-family:      $font-family;
+	font-size:        $font-size;
+}
+
+br{
+	clear: both;
+}
+
+h1{
+	background-color: $bkg-color;
+	border-bottom:    1px solid $line-color;
+	font-family:      $font-family;
+	font-size:        $font-size * 3;
+	height:           $font-size * 6;
+	line-height:      $font-size * 6;
+}
+
+.centralize{
+	margin: 0 auto;
+	width: $width;
+}
+
+@import "buttons";
+@import "calendar";
+@import "details";
+@import "modal";
+@import "form";

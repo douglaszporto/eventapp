@@ -1,0 +1,89 @@
+button{
+	@include     row-height(30px);
+	border:      0px;
+	box-sizing:  border-box;
+	color:       #fff;
+	cursor:      pointer;
+	font-family: $font-family;
+	font-size:   $font-size;
+	margin:      0;
+	padding:     0;
+	transition:  all .3s ease;
+	width:       150px;
+}
+button[disabled]{
+	opacity: 0.4;
+	cursor:  default;
+}
+button:focus{
+	outline:none;
+}
+
+.btn-action-right{
+	float:  right;
+	margin: 5px 0 0 5px;
+}
+
+.btn-action-left{
+	float:  left;
+	margin: 5px 5px 0 0;
+}
+
+.btn-green{
+	background-color: #5cb85c;
+	border-bottom:    3px solid #3c9e3c;
+}
+.btn-green:focus,
+.btn-green:not([disabled]):hover{
+	color:            #000;
+	background-color: #7cd87c;
+	border-bottom:    3px solid #5cbe5c;
+}
+
+
+.btn-grey{
+	background-color: #aaa;
+	border-bottom:    3px solid #666;
+}
+.btn-grey:focus,
+.btn-grey:not([disabled]):hover{
+	color:            #000;
+	background-color: #ccc;
+	border-bottom:    3px solid #888;
+}
+
+
+.btn-red{
+	background-color: #c9302c;
+	border-bottom:    3px solid #8c0905;
+}
+.btn-red:focus,
+.btn-red:not([disabled]):hover{
+	color:            #000;
+	background-color: #e9504c;
+	border-bottom:    3px solid #a9100c;
+}
+
+
+.btn-yellow{
+	background-color: #f0ad4e;
+	border-bottom:    3px solid #d08d2e;
+}
+.btn-yellow:focus,
+.btn-yellow:not([disabled]):hover{
+	color:            #000;
+	background-color: #ffcd6e;
+	border-bottom:    3px solid #f0ad4e;
+}
+
+
+.btn-blue{
+	background-color: #337ab7;
+	border-bottom:    3px solid #135a97;
+}
+.btn-blue:focus,
+.btn-blue:not([disabled]):hover{
+	color:            #000;
+	background-color: #31b0d5;
+	border-bottom:    3px solid #1190b5;
+}
