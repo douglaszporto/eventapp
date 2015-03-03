@@ -9,27 +9,27 @@ import play.db.jpa.*;
 public class EventDateModel extends Model{
 
 	public String  title;
-	public String  desc;
+	public String  description;
 	public String  local;
-	public Date    date;
-	public String  time;
+	public Date    eventdate;
+	public String  eventtime;
 	public Integer remind;
 
 	public EventDateModel(){
-		this.title  = "";
-		this.desc   = "";
-		this.local  = "";
-		this.date   = new Date();
-		this.time   = "";
-		this.remind = 2;
+		this.title       = "";
+		this.description = "";
+		this.local       = "";
+		this.eventdate   = new Date();
+		this.eventtime   = "";
+		this.remind      = 2;
 	}
 
 	public EventDateModel(String pTitle, String pDesc, String pLocal, Date pDate, String pTime, Integer pRemind){
-		this.title  = pTitle;
-		this.desc   = pDesc;
-		this.local  = pLocal;
-		this.date   = pDate;
-		this.time   = pTime;
-		this.remind = pRemind;
+		this.title       = pTitle;
+		this.description = pDesc;
+		this.local       = pLocal;
+		this.eventdate   = pDate;
+		this.eventtime   = pTime;
+		this.remind      = pRemind;
 	}
 }

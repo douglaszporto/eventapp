@@ -29,7 +29,7 @@ public class EventDate extends Controller {
 
 		Date d = new Date(year - 1900, month, day);
 		
-		List<EventDateModel> events = EventDateModel.find("date",d).fetch();
+		List<EventDateModel> events = EventDateModel.find("eventdate",d).fetch();
 		renderJSON(events,EventDateSerializer.getInstance());
 
 	}
@@ -49,12 +49,12 @@ public class EventDate extends Controller {
 		if(e == null){
 			e = new EventDateModel(title, desc, local, date, time, remind);
 		}else{
-			e.title  = title;
-			e.desc   = desc;
-			e.local  = local;
-			e.date   = date;
-			e.time   = time;
-			e.remind = remind;
+			e.title       = title;
+			e.description = desc;
+			e.local       = local;
+			e.eventdate   = date;
+			e.eventtime   = time;
+			e.remind      = remind;
 		}
 
 		e.save();
