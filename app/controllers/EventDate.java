@@ -43,24 +43,22 @@ public class EventDate extends Controller {
 			renderJSON(e,EventDateSerializer.getInstance());
 	}
 
-    public static void Save(long id, String title, String desc, String local, Date date, String time, Integer remind) {
-        EventDateModel e = EventDateModel.findById(id);
-		
-		if(e == null){
-			e = new EventDateModel(title, desc, local, date, time, remind);
-		}else{
-			e.title       = title;
-			e.description = desc;
-			e.local       = local;
-			e.eventdate   = date;
-			e.eventtime   = time;
-			e.remind      = remind;
+	public static void Delete(Long id){
+		EventDateModel e = EventDateModel.findById(id);
+
+		if(e == null)
+			error("Não encontrado Evento ID #"+id);
+		else{
+			e.delete();
+			renderText("1");
 		}
+	}
 
-		e.save();
+    public static void Save(EventDateModel ev) {
+        ev.save();
 
-		if(e != null)
-			renderJSON(e,EventDateSerializer.getInstance());
+		if(ev != null)
+			renderJSON(ev,EventDateSerializer.getInstance());
 		else
 			error("Não foi possível inserir o Evento");
     }

@@ -490,7 +490,7 @@ button:focus {
 /* line 87, ../sass/_modal.scss */
 .event-model-button-wrapper {
   box-sizing: border-box;
-  padding: 0 5% 20px 0;
+  padding: 0 5% 20px 5%;
   width: 100%;
 }
 /* line 92, ../sass/_modal.scss */

@@ -1,432 +1,63 @@
-28 Fev 2015 11:48:05,949 INFO  ~ Starting D:\Code\Java\EventApp
-28 Fev 2015 11:48:07,211 WARN  ~ You're running Play! in DEV mode
-28 Fev 2015 11:48:07,415 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
-28 Fev 2015 11:49:30,975 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
-28 Fev 2015 11:49:31,125 INFO  ~ Application 'EventApp' is now started !
-01 Mar 2015 17:49:25,957 ERROR ~ 
+03 Mar 2015 21:58:29,459 INFO  ~ Starting D:\Code\Java\EventApp
+03 Mar 2015 21:58:30,698 WARN  ~ You're running Play! in DEV mode
+03 Mar 2015 21:58:30,917 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+03 Mar 2015 21:58:58,048 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
+03 Mar 2015 21:59:00,106 INFO  ~ Application 'EventApp' is now started !
+03 Mar 2015 22:26:02,341 ERROR ~ 
 
-@6lbi19d63
+@6lc7plcjh
+Internal Server Error (500) for request POST /event/save
+
+Execution exception (In /app/controllers/EventDate.java around line 58)
+PersistenceException occured : org.hibernate.PersistentObjectException: detached entity passed to persist: models.EventDateModel
+
+play.exceptions.JavaExecutionException: org.hibernate.PersistentObjectException: detached entity passed to persist: models.EventDateModel
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:237)
+	at Invocation.HTTP Request(Play!)
+Caused by: javax.persistence.PersistenceException: org.hibernate.PersistentObjectException: detached entity passed to persist: models.EventDateModel
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1389)
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1317)
+	at org.hibernate.ejb.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1323)
+	at org.hibernate.ejb.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:845)
+	at play.db.jpa.JPABase._save(JPABase.java:31)
+	at play.db.jpa.GenericModel.save(GenericModel.java:215)
+	at controllers.EventDate.Save(EventDate.java:58)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:557)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:508)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:484)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:479)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+Caused by: org.hibernate.PersistentObjectException: detached entity passed to persist: models.EventDateModel
+	at org.hibernate.event.def.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:137)
+	at org.hibernate.event.def.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:71)
+	at org.hibernate.impl.SessionImpl.firePersist(SessionImpl.java:808)
+	at org.hibernate.impl.SessionImpl.persist(SessionImpl.java:782)
+	at org.hibernate.impl.SessionImpl.persist(SessionImpl.java:786)
+	at org.hibernate.ejb.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:839)
+	... 9 more
+03 Mar 2015 22:51:26,102 ERROR ~ 
+
+@6lc7plcji
 Internal Server Error (500) for request GET /
 
-Compilation error (In /app/classes/EventDateSerializer.java around line 9)
-The file /app/classes/EventDateSerializer.java could not be compiled. Error raised is : TaskModel cannot be resolved to a type
+Template compilation error (In /app/views/Application/index.html around line 62)
+The template /app/views/Application/index.html does not compile : #{{modal.eventdate}} is not closed.
 
-play.exceptions.CompilationException: TaskModel cannot be resolved to a type
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:676)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:520)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClassloader.getAllClasses(ApplicationClassloader.java:426)
-	at play.Play.start(Play.java:523)
-	at play.Play.detectChanges(Play.java:649)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 17:50:01,424 ERROR ~ 
-
-@6lbi19d64
-Internal Server Error (500) for request GET /
-
-Compilation error (In /app/classes/EventDateSerializer.java around line 21)
-The file /app/classes/EventDateSerializer.java could not be compiled. Error raised is : EventDateSerializerModel cannot be resolved to a type
-
-play.exceptions.CompilationException: EventDateSerializerModel cannot be resolved to a type
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:676)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:520)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 17:50:44,831 ERROR ~ 
-
-@6lbi19d65
-Internal Server Error (500) for request GET /
-
-Compilation error (In /app/classes/EventDateSerializer.java around line 31)
-The file /app/classes/EventDateSerializer.java could not be compiled. Error raised is : The method addProperty(String, String) in the type JsonObject is not applicable for the arguments (String, Date)
-
-play.exceptions.CompilationException: The method addProperty(String, String) in the type JsonObject is not applicable for the arguments (String, Date)
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:676)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:520)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 18:09:45,497 ERROR ~ 
-
-@6lbi19d66
-task.save action not found
-
-Action not found
-Action task.save could not be found. Error raised is Controller controllers.task not found
-
-play.exceptions.ActionNotFoundException: Action task.save not found
-	at play.mvc.ActionInvoker.getActionMethod(ActionInvoker.java:599)
-	at play.mvc.ActionInvoker.resolve(ActionInvoker.java:85)
-	at Invocation.HTTP Request(Play!)
-Caused by: java.lang.Exception: Controller controllers.task not found
-	... 3 more
-01 Mar 2015 18:11:24,162 ERROR ~ 
-
-@6lbi19d67
-task.save action not found
-
-Action not found
-Action task.save could not be found. Error raised is Controller controllers.task not found
-
-play.exceptions.ActionNotFoundException: Action task.save not found
-	at play.mvc.ActionInvoker.getActionMethod(ActionInvoker.java:599)
-	at play.mvc.ActionInvoker.resolve(ActionInvoker.java:85)
-	at Invocation.HTTP Request(Play!)
-Caused by: java.lang.Exception: Controller controllers.task not found
-	... 3 more
-01 Mar 2015 20:38:41,784 ERROR ~ 
-
-@6lbi19d68
-Internal Server Error (500) for request GET /event/date/2015/03/01
-
-Compilation error (In /app/controllers/EventDate.java around line 20)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Invalid character constant
-
-play.exceptions.CompilationException: Invalid character constant
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:478)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 20:39:08,736 ERROR ~ 
-
-@6lbi19d69
-Internal Server Error (500) for request GET /event/date/2015/03/01
-
-Compilation error (In /app/controllers/EventDate.java around line 20)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Invalid character constant
-
-play.exceptions.CompilationException: Invalid character constant
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:478)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 20:40:15,381 ERROR ~ 
-
-@6lbi19d6a
-Internal Server Error (500) for request GET /event/date/2015/03/01
-
-Compilation error (In /app/controllers/EventDate.java around line 28)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Syntax error, insert ";" to complete LocalVariableDeclarationStatement
-
-play.exceptions.CompilationException: Syntax error, insert ";" to complete LocalVariableDeclarationStatement
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:478)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 20:51:29,824 ERROR ~ 
-
-@6lbi19d6b
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Execution exception (In /app/controllers/EventDate.java around line 30)
-IllegalArgumentException occured : Parameter value [1] did not match expected type [java.lang.Long]
-
-play.exceptions.JavaExecutionException: Parameter value [1] did not match expected type [java.lang.Long]
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:237)
-	at Invocation.HTTP Request(Play!)
-Caused by: java.lang.IllegalArgumentException: Parameter value [1] did not match expected type [java.lang.Long]
-	at org.hibernate.ejb.AbstractQueryImpl.validateParameterBinding(AbstractQueryImpl.java:365)
-	at org.hibernate.ejb.AbstractQueryImpl.registerParameterBinding(AbstractQueryImpl.java:338)
-	at org.hibernate.ejb.QueryImpl.setParameter(QueryImpl.java:364)
-	at org.hibernate.ejb.QueryImpl.setParameter(QueryImpl.java:431)
-	at org.hibernate.ejb.QueryImpl.setParameter(QueryImpl.java:72)
-	at play.db.jpa.JPQL.bindParameters(JPQL.java:174)
-	at play.db.jpa.JPQL.find(JPQL.java:48)
-	at models.EventDateModel.find(EventDateModel.java)
-	at controllers.EventDate.OnDate(EventDate.java:30)
+play.exceptions.TemplateCompilationException: #{{modal.eventdate}} is not closed.
+	at play.templates.TemplateCompiler.generate(TemplateCompiler.java:104)
+	at play.templates.TemplateCompiler.compile(TemplateCompiler.java:15)
+	at play.templates.GroovyTemplateCompiler.compile(GroovyTemplateCompiler.java:41)
+	at play.templates.TemplateCompiler.compile(TemplateCompiler.java:28)
+	at play.templates.TemplateLoader.load(TemplateLoader.java:87)
+	at play.templates.TemplateLoader.load(TemplateLoader.java:172)
+	at play.mvc.Controller.renderTemplate(Controller.java:661)
+	at play.mvc.Controller.renderTemplate(Controller.java:642)
+	at play.mvc.Controller.render(Controller.java:699)
+	at controllers.Application.index(Application.java:13)
 	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:557)
 	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:508)
 	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:484)
 	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:479)
 	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
-	... 1 more
-01 Mar 2015 20:53:34,279 ERROR ~ 
-
-@6lbi19d6c
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Compilation error (In /app/controllers/EventDate.java around line 33)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Syntax error, insert ";" to complete Statement
-
-play.exceptions.CompilationException: Syntax error, insert ";" to complete Statement
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:478)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 20:53:41,166 ERROR ~ 
-
-@6lbi19d6d
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Compilation error (In /app/controllers/EventDate.java around line 33)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : The type of the expression must be an array type but it resolved to List&lt;EventDateModel>
-
-play.exceptions.CompilationException: The type of the expression must be an array type but it resolved to List<EventDateModel>
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:676)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:520)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 20:54:33,943 ERROR ~ 
-
-@6lbi19d6e
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Compilation error (In /app/controllers/EventDate.java around line 33)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Type mismatch: cannot convert from Date to String
-
-play.exceptions.CompilationException: Type mismatch: cannot convert from Date to String
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:676)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:520)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 20:54:36,208 ERROR ~ 
-
-@6lbi19d6f
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Compilation error (In /app/controllers/EventDate.java around line 33)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Type mismatch: cannot convert from Date to String
-
-play.exceptions.CompilationException: Type mismatch: cannot convert from Date to String
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:676)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:520)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 20:54:49,363 ERROR ~ 
-
-@6lbi19d6g
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Execution exception (In /app/controllers/EventDate.java around line 33)
-IndexOutOfBoundsException occured : Index: 0, Size: 0
-
-play.exceptions.JavaExecutionException: Index: 0, Size: 0
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:237)
-	at Invocation.HTTP Request(Play!)
-Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-	at java.util.ArrayList.rangeCheck(ArrayList.java:635)
-	at java.util.ArrayList.get(ArrayList.java:411)
-	at controllers.EventDate.OnDate(EventDate.java:33)
-	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:557)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:508)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:484)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:479)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
-	... 1 more
-01 Mar 2015 21:06:03,047 ERROR ~ 
-
-@6lbi19d6h
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Compilation error (In /app/controllers/EventDate.java around line 32)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Syntax error on token ".", Identifier expected after this token
-
-play.exceptions.CompilationException: Syntax error on token ".", Identifier expected after this token
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:478)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 21:07:17,851 ERROR ~ 
-
-@6lbi19d6i
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Compilation error (In /app/controllers/EventDate.java around line 32)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Syntax error, insert ";" to complete LocalVariableDeclarationStatement
-
-play.exceptions.CompilationException: Syntax error, insert ";" to complete LocalVariableDeclarationStatement
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:478)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 21:07:29,307 ERROR ~ 
-
-@6lbi19d6j
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Execution exception (In /app/controllers/EventDate.java around line 34)
-NullPointerException occured : Try to read date on null object models.EventDateModel (controllers.EventDate.OnDate, line 34)
-
-play.exceptions.JavaExecutionException: Try to read date on null object models.EventDateModel (controllers.EventDate.OnDate, line 34)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:237)
-	at Invocation.HTTP Request(Play!)
-Caused by: java.lang.NullPointerException: Try to read date on null object models.EventDateModel (controllers.EventDate.OnDate, line 34)
-	at play.classloading.enhancers.PropertiesEnhancer$FieldAccessor.invokeReadProperty(PropertiesEnhancer.java:213)
-	at controllers.EventDate.OnDate(EventDate.java:34)
-	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:557)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:508)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:484)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:479)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
-	... 1 more
-01 Mar 2015 21:51:15,191 ERROR ~ 
-
-@6lbi19d6k
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Compilation error (In /app/controllers/EventDate.java around line 19)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : SimpleDateFormat cannot be resolved to a type
-
-play.exceptions.CompilationException: SimpleDateFormat cannot be resolved to a type
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:676)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:520)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 21:51:31,353 ERROR ~ 
-
-@6lbi19d6l
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Execution exception (In /app/controllers/EventDate.java around line 37)
-NullPointerException occured : Try to read date on null object models.EventDateModel (controllers.EventDate.OnDate, line 37)
-
-play.exceptions.JavaExecutionException: Try to read date on null object models.EventDateModel (controllers.EventDate.OnDate, line 37)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:237)
-	at Invocation.HTTP Request(Play!)
-Caused by: java.lang.NullPointerException: Try to read date on null object models.EventDateModel (controllers.EventDate.OnDate, line 37)
-	at play.classloading.enhancers.PropertiesEnhancer$FieldAccessor.invokeReadProperty(PropertiesEnhancer.java:213)
-	at controllers.EventDate.OnDate(EventDate.java:37)
-	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:557)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:508)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:484)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:479)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
-	... 1 more
-01 Mar 2015 21:53:37,017 ERROR ~ 
-
-@6lbi19d6m
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Execution exception (In /app/controllers/EventDate.java around line 39)
-NullPointerException occured : Try to read date on null object models.EventDateModel (controllers.EventDate.OnDate, line 39)
-
-play.exceptions.JavaExecutionException: Try to read date on null object models.EventDateModel (controllers.EventDate.OnDate, line 39)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:237)
-	at Invocation.HTTP Request(Play!)
-Caused by: java.lang.NullPointerException: Try to read date on null object models.EventDateModel (controllers.EventDate.OnDate, line 39)
-	at play.classloading.enhancers.PropertiesEnhancer$FieldAccessor.invokeReadProperty(PropertiesEnhancer.java:213)
-	at controllers.EventDate.OnDate(EventDate.java:39)
-	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:557)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:508)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:484)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:479)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
-	... 1 more
-01 Mar 2015 21:59:28,500 ERROR ~ 
-
-@6lbi19d6n
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Compilation error (In /app/controllers/EventDate.java around line 32)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Type mismatch: cannot convert from GenericModel.JPAQuery to EventDateModel
-
-play.exceptions.CompilationException: Type mismatch: cannot convert from GenericModel.JPAQuery to EventDateModel
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:676)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:520)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
-	at Invocation.HTTP Request(Play!)
-01 Mar 2015 22:00:13,533 ERROR ~ 
-
-@6lbi19d6o
-Internal Server Error (500) for request GET /event/date/2015/1/3
-
-Execution exception (In /app/controllers/EventDate.java around line 32)
-IllegalArgumentException occured : Parameter value [2015-02-03 00:00:00.0] did not match expected type [java.util.Date]
-
-play.exceptions.JavaExecutionException: Parameter value [2015-02-03 00:00:00.0] did not match expected type [java.util.Date]
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:237)
-	at Invocation.HTTP Request(Play!)
-Caused by: java.lang.IllegalArgumentException: Parameter value [2015-02-03 00:00:00.0] did not match expected type [java.util.Date]
-	at org.hibernate.ejb.AbstractQueryImpl.validateParameterBinding(AbstractQueryImpl.java:365)
-	at org.hibernate.ejb.AbstractQueryImpl.registerParameterBinding(AbstractQueryImpl.java:338)
-	at org.hibernate.ejb.QueryImpl.setParameter(QueryImpl.java:364)
-	at org.hibernate.ejb.QueryImpl.setParameter(QueryImpl.java:431)
-	at org.hibernate.ejb.QueryImpl.setParameter(QueryImpl.java:72)
-	at play.db.jpa.JPQL.bindParameters(JPQL.java:174)
-	at play.db.jpa.JPQL.find(JPQL.java:48)
-	at models.EventDateModel.find(EventDateModel.java)
-	at controllers.EventDate.OnDate(EventDate.java:32)
-	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:557)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:508)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:484)
-	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:479)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
-	... 1 more
-01 Mar 2015 23:25:13,702 ERROR ~ 
-
-@6lbi19d6p
-Internal Server Error (500) for request GET /
-
-Compilation error (In /app/controllers/EventDate.java around line 40)
-The file /app/controllers/EventDate.java could not be compiled. Error raised is : Unhandled exception type InterruptedException
-
-play.exceptions.CompilationException: Unhandled exception type InterruptedException
-	at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-	at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:676)
-	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:520)
-	at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-	at play.classloading.ApplicationClasses$ApplicationClass.compile(ApplicationClasses.java:281)
-	at play.classloading.ApplicationClassloader.detectChanges(ApplicationClassloader.java:324)
-	at play.Play.detectChanges(Play.java:632)
-	at play.Invoker$Invocation.init(Invoker.java:198)
 	at Invocation.HTTP Request(Play!)

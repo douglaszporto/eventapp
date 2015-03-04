@@ -51,6 +51,10 @@ app.controller('CalendarCtrl',['$scope','$timeout','$rootScope','$http','DateStr
 
 	$scope.eventlist = [];
 
+	$scope.selectedMonth = function(){
+		return $dateStringify.getLong($scope.now.selectedDate.getMonth());
+	}
+
 	$scope.getWeekName = function(weekday){
 		return $dateStringify.getWeek(weekday);
 	};
@@ -199,7 +203,8 @@ app.controller('CalendarCtrl',['$scope','$timeout','$rootScope','$http','DateStr
 		var year  = $dateStringify.zerofill($rootScope.selectedDate.getFullYear());
 		$rootScope.$broadcast("openModal");
 		$rootScope.$broadcast("modalLoadData",{
-			"date":day+"/"+month+"/"+year,
+			"eventdate":day+"/"+month+"/"+year,
+			"eventtime":"00:00",
 			"remind": 2
 		});
 	};
@@ -239,6 +244,14 @@ app.controller('CalendarCtrl',['$scope','$timeout','$rootScope','$http','DateStr
 		$scope.eventlist.push(data);
 	});
 
+	$rootScope.$on('eventDelete',function(event,data){
+		for(var i in $scope.eventlist)
+			if($scope.eventlist[i].id == data){
+				$scope.eventlist.splice(i,1);
+				return;
+			}
+	});
+
 }]);
 
 
@@ -276,13 +289,13 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 			};
 
 			$scope.modal = {
-				'id'     : 0,
-				'title'  : '',
-				'desc'   : '',
-				'local'  : '',
-				'date'   : '',
-				'time'   : '00:00',
-				'remind' : 2
+				'id'          : 0,
+				'title'       : '',
+				'description' : '',
+				'local'       : '',
+				'eventdate'   : '',
+				'eventtime'   : '00:00',
+				'remind'      : 2
 			};
 
 			$scope.close = function(){
@@ -295,7 +308,7 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 				var year  = $dateStringify.zerofill($rootScope.selectedDate.getFullYear());
 
 				$scope.view.open = true;
-				$scope.modal.date = day+"/"+month+"/"+year;
+				$scope.modal.eventdate = day+"/"+month+"/"+year;
 			};
 
 			$scope.save = function(){
@@ -303,15 +316,19 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 				var month = $dateStringify.zerofill($rootScope.selectedDate.getMonth() + 1);
 				var year  = $dateStringify.zerofill($rootScope.selectedDate.getFullYear());
 
-				$http.post('/event/save',{
-					'id'     : $scope.modal.id     || 0,
-					'title'  : $scope.modal.title  || '',
-					'desc'   : $scope.modal.desc   || '',
-					'local'  : $scope.modal.local  || '',
-					'date'   : day+'/'+month+"/"+year,
-					'time'   : $scope.modal.time   || '',
-					'remind' : $scope.modal.remind || 2 
-				},{
+				var post = {
+					'ev.title'       : $scope.modal.title       || '',
+					'ev.description' : $scope.modal.description || '',
+					'ev.local'       : $scope.modal.local       || '',
+					'ev.eventdate'   : $scope.modal.eventdate   || (day+'/'+month+'/'+year),
+					'ev.eventtime'   : $scope.modal.eventtime   || '',
+					'ev.remind'      : $scope.modal.remind      || 2 
+				};
+
+				if(parseInt($scope.modal.id) > 0)
+					post["ev.id"] = $scope.modal.id;
+
+				$http.post('/event/save',post,{
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 				}).success(function(data){
 					$rootScope.$broadcast('eventUpdate',data);
@@ -321,16 +338,26 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 				});
 			};
 
+			$scope.cancel = function(){
+				$http.delete('/event/delete/'+($scope.modal.id || "0")).success(function(data){
+					$rootScope.$broadcast("eventDelete",$scope.modal.id);
+					$scope.close();
+				}).error(function(data){
+					console.log(data);
+					$scope.close();
+				});
+			};
+
 
 
 			$rootScope.$on('modalLoadData',function(event,data){
-				$scope.modal.id     = data.id     || '';
-				$scope.modal.title  = data.title  || '';
-				$scope.modal.desc   = data.desc   || '';
-				$scope.modal.local  = data.local  || '';
-				$scope.modal.date   = data.date   || '';
-				$scope.modal.time   = data.time   || '';
-				$scope.modal.remind = data.remind || '';
+				$scope.modal.id          = data.id          || '';
+				$scope.modal.title       = data.title       || '';
+				$scope.modal.description = data.description || '';
+				$scope.modal.local       = data.local       || '';
+				$scope.modal.eventdate   = data.eventdate   || '';
+				$scope.modal.eventtime   = data.eventtime   || '';
+				$scope.modal.remind      = data.remind      || '';
 			});
 
 			$rootScope.$on('openModal',function(){
@@ -380,6 +407,11 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 				"dayNamesShort": ["Dom","Seg","Ter","Qua","Qui","Sex","Sab"],
 				"monthNames": ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
 				"monthNamesShort": ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
+			}).change(function(){
+				var self = this;
+				scope.$apply(function(){
+					scope.modal.eventdate = $(self).val();
+				});
 			});
 
 			modal.find('[event-timer]').keyup(function(){
@@ -389,7 +421,7 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 					var unmasked = ("0000" + value.replace(/[^0-9]/gim,"")).substr(-4);
 
 					$(self).val(unmasked.substr(0,2) + ':' + unmasked.substr(2,2));
-					scope.modal.time = unmasked.substr(0,2) + ':' + unmasked.substr(2,2);
+					scope.modal.eventtime = unmasked.substr(0,2) + ':' + unmasked.substr(2,2);
 				});
 			}).blur(function(){
 				var self = this;
@@ -399,7 +431,7 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 
 					if(parseInt(parts[0]) > 23 || parseInt(parts[0]) < 0 || parseInt(parts[1]) > 59 || parseInt(parts[1]) < 0){
 						$(self).val('00:00');
-						scope.modal.time = '00:00';
+						scope.modal.eventtime = '00:00';
 					}
 				});
 			});

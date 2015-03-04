@@ -18,18 +18,21 @@ public class EventDateSerializer implements JsonSerializer<EventDateModel>{
 	}
 
 	@Override
-	public JsonElement serialize(final EventDateModel eventdate, final Type type, final JsonSerializationContext context){
+	public JsonElement serialize(final EventDateModel eventdate, final Type type,
+		                         final JsonSerializationContext context){
 		final JsonObject       obj     = new JsonObject();
 		final SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-		final String date_formated = eventdate.eventdate == null ? "" : formato.format(eventdate.eventdate);
+		final String date_formated = eventdate.eventdate == null 
+		                             ? "" 
+		                             : formato.format(eventdate.eventdate);
 
 		obj.addProperty("id", eventdate.id);
 		obj.addProperty("title", eventdate.title);
-		obj.addProperty("desc", eventdate.description);
+		obj.addProperty("description", eventdate.description);
 		obj.addProperty("local", eventdate.local);
-		obj.addProperty("date", date_formated);
-		obj.addProperty("time", eventdate.eventtime);
+		obj.addProperty("eventdate", date_formated);
+		obj.addProperty("eventtime", eventdate.eventtime);
 		obj.addProperty("remind", eventdate.remind);
 
 		return obj;

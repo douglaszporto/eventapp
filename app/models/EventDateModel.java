@@ -24,7 +24,8 @@ public class EventDateModel extends Model{
 		this.remind      = 2;
 	}
 
-	public EventDateModel(String pTitle, String pDesc, String pLocal, Date pDate, String pTime, Integer pRemind){
+	public EventDateModel(String pTitle, String pDesc, String pLocal, 
+		                  Date pDate, String pTime, Integer pRemind){
 		this.title       = pTitle;
 		this.description = pDesc;
 		this.local       = pLocal;
