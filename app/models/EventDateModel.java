@@ -6,31 +6,41 @@ import javax.persistence.*;
 import play.db.jpa.*;
 
 @Entity
-public class EventDateModel extends Model{
+public class EventDateModel extends Model {
 
-	public String  title;
-	public String  description;
-	public String  local;
-	public Date    eventdate;
-	public String  eventtime;
+	public String title;
+	public String description;
+	public String local;
+	public Date eventDate;
+	public String eventTime;
 	public Integer remind;
 
-	public EventDateModel(){
-		this.title       = "";
+	@OneToMany(cascade = { CascadeType.ALL })
+	public List<UserModel> participants;
+
+	public EventDateModel() {
+		this.title = "";
 		this.description = "";
-		this.local       = "";
-		this.eventdate   = new Date();
-		this.eventtime   = "";
-		this.remind      = 2;
+		this.local = "";
+		this.eventDate = new Date();
+		this.eventTime = "";
+		this.remind = 2;
+		this.participants = new ArrayList<UserModel>();
 	}
 
-	public EventDateModel(String pTitle, String pDesc, String pLocal, 
-		                  Date pDate, String pTime, Integer pRemind){
-		this.title       = pTitle;
+	public EventDateModel(String pTitle, String pDesc, String pLocal,
+			Date pDate, String pTime, Integer pRemind,
+			List<UserModel> pParticipants) {
+		this.title = pTitle;
 		this.description = pDesc;
-		this.local       = pLocal;
-		this.eventdate   = pDate;
-		this.eventtime   = pTime;
-		this.remind      = pRemind;
+		this.local = pLocal;
+		this.eventDate = pDate;
+		this.eventTime = pTime;
+		this.remind = pRemind;
+		this.participants = pParticipants;
+	}
+
+	public void setParticipants(List<UserModel> participants) {
+		this.participants = participants;
 	}
 }

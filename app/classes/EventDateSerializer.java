@@ -2,6 +2,7 @@ package classes;
 
 import play.*;
 import models.*;
+import java.util.*;
 import com.google.gson.*;
 import java.lang.reflect.*;
 import java.text.SimpleDateFormat;
@@ -18,24 +19,30 @@ public class EventDateSerializer implements JsonSerializer<EventDateModel>{
 	}
 
 	@Override
-	public JsonElement serialize(final EventDateModel eventdate, final Type type,
-		                         final JsonSerializationContext context){
-		final JsonObject       obj     = new JsonObject();
+	public JsonElement serialize(final EventDateModel eventDate, final Type type,
+			final JsonSerializationContext context){
+		final JsonObject objEvent = new JsonObject();
+		final JsonArray participants = new JsonArray();
 		final SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-		final String date_formated = eventdate.eventdate == null 
-		                             ? "" 
-		                             : formato.format(eventdate.eventdate);
+		final String date_formated = eventDate.eventDate == null ? "" : formato.format(eventDate.eventDate);
 
-		obj.addProperty("id", eventdate.id);
-		obj.addProperty("title", eventdate.title);
-		obj.addProperty("description", eventdate.description);
-		obj.addProperty("local", eventdate.local);
-		obj.addProperty("eventdate", date_formated);
-		obj.addProperty("eventtime", eventdate.eventtime);
-		obj.addProperty("remind", eventdate.remind);
+		if(eventDate.participants != null) {
+			for(UserModel user : eventDate.participants) {
+				participants.add(new JsonPrimitive(user.email));
+			}
+		}
 
-		return obj;
+		objEvent.addProperty("id", eventDate.id);
+		objEvent.addProperty("title", eventDate.title);
+		objEvent.addProperty("description", eventDate.description);
+		objEvent.addProperty("local", eventDate.local);
+		objEvent.addProperty("eventdate", date_formated);
+		objEvent.addProperty("eventtime", eventDate.eventTime);
+		objEvent.addProperty("remind", eventDate.remind);
+		objEvent.add("participants", participants);
+
+		return objEvent;
 	}
 
 }

@@ -110,7 +110,8 @@ app.controller('CalendarCtrl',['$scope','$timeout','$rootScope','$http','DateStr
 				'date'       : [dateUsed.getFullYear(),dateUsed.getMonth(),dateUsed.getDate(),-1],
 				'isToday'    : dateUsed.getTime() == today.getTime(),
 				'timestamp'  : dateUsed.getTime(),
-				'day'        : $scope.now.firstDay - i
+				'day'        : $scope.now.firstDay - i,
+				'hasEvent'   : false
 			});
 		}
 
@@ -126,7 +127,8 @@ app.controller('CalendarCtrl',['$scope','$timeout','$rootScope','$http','DateStr
 				'date'       : [dateUsed.getFullYear(),dateUsed.getMonth(),dateUsed.getDate(),0],
 				'isToday'    : dateUsed.getTime() == today.getTime(),
 				'timestamp'  : dateUsed.getTime(),
-				'day'        : currentDay++
+				'day'        : currentDay++,
+				'hasEvent'   : false
 			});
 			if(week.length === 7){
 				$scope.now.calendar.push(week);
@@ -144,17 +146,20 @@ app.controller('CalendarCtrl',['$scope','$timeout','$rootScope','$http','DateStr
 				'date'       : [dateUsed.getFullYear(),dateUsed.getMonth(),dateUsed.getDate(),1],
 				'isToday'    : dateUsed.getTime() == today.getTime(),
 				'timestamp'  : dateUsed.getTime(),
-				'day'        : currentDay++
+				'day'        : currentDay++,
+				'hasEvent'   : false
 			});
 		}
 
 		if(week.length > 0)
 			$scope.now.calendar.push(week);
+
+		$scope.requestEventsByDay();
 	};
 
 	$scope.initialize = function(){
 		var now = new Date();
-		$rootScope.loadingEvents = false;
+		$rootScope.loadingEvents = 0;
 
 		$scope.now.selectedDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 		$rootScope.selectedDate = $scope.now.selectedDate;
@@ -205,7 +210,8 @@ app.controller('CalendarCtrl',['$scope','$timeout','$rootScope','$http','DateStr
 		$rootScope.$broadcast("modalLoadData",{
 			"eventdate":day+"/"+month+"/"+year,
 			"eventtime":"00:00",
-			"remind": 2
+			"remind": 2,
+			"participants":[]
 		});
 	};
 
@@ -222,17 +228,57 @@ app.controller('CalendarCtrl',['$scope','$timeout','$rootScope','$http','DateStr
 	}
 
 	$scope.loadEventsOnDate = function(year, month, day){
-		$rootScope.loadingEvents = true;
+		$rootScope.loadingEvents++;
 		$timeout(function(){
 			$http.get("/event/date/"+year+"/"+$dateStringify.zerofill(month)+"/"+$dateStringify.zerofill(day)).success(function(data){
 				$scope.eventlist = data;
-				$timeout(function(){$rootScope.loadingEvents = false;},10);
+				$timeout(function(){$rootScope.loadingEvents--;},10);
 			}).error(function(data){
 				console.error(data);
-				$timeout(function(){$rootScope.loadingEvents = false;},10);
+				$timeout(function(){$rootScope.loadingEvents--;},10);
 			});
 		},300);
 	};
+
+	$scope.requestEventsByDay = function(){
+		$rootScope.loadingEvents++;
+		$timeout(function(){
+			$http.get("/event/list/"+$scope.now.todayYear+"/"+$scope.now.todayMonth).success(function(data){
+				$scope.markDaysWithEvents(data);
+				$timeout(function(){$rootScope.loadingEvents--;},10);
+			}).error(function(data){
+				console.error(data);
+				$timeout(function(){$rootScope.loadingEvents--;},10);
+			});
+		},300);
+	};
+
+	$scope.markDaysWithEvents = function(data){
+		var date         = null;
+		var day          = null;
+		var month        = null;
+		var year         = null;
+		var calendarDate = null;
+		for(var i in data){
+			if(typeof i !== 'string')
+				continue;
+
+			date         = i.split("/");
+			day          = parseInt(date[0]);
+			month        = parseInt(date[1]) - 1;
+			year         = parseInt(date[2]);
+			calendarDate = null;
+
+			for(var w in $scope.now.calendar)
+				for(var d in $scope.now.calendar[w]){
+					calendarDate = $scope.now.calendar[w][d]["date"];
+					if(typeof calendarDate !== 'object')
+						continue;
+					if(calendarDate[0] == year && calendarDate[1] == month && calendarDate[2] == day)
+						$scope.now.calendar[w][d].hasEvent = true;
+				}
+		}
+	}
 
 	$rootScope.$on('eventUpdate',function(event,data){
 		for(var i in $scope.eventlist)
@@ -250,6 +296,10 @@ app.controller('CalendarCtrl',['$scope','$timeout','$rootScope','$http','DateStr
 				$scope.eventlist.splice(i,1);
 				return;
 			}
+	});
+
+	$rootScope.$on('markDaysWithEvents',function(event,data){77
+		$scope.markDaysWithEvents(data);
 	});
 
 }]);
@@ -282,11 +332,17 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 		'restrict' : 'E',
 		'replace' : false,
 		'transclude' : false,
-		'scope' : {},
+		'scope' : true,
 		'controller' : ['$scope','DateStringify',function($scope,$dateStringify){
 			$scope.view = {
 				'open' : false
 			};
+
+			$scope.participants = {
+				'nextid' : 1,
+				'fields' : [0],
+				'values' : ['']
+			}
 
 			$scope.modal = {
 				'id'          : 0,
@@ -320,10 +376,15 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 					'ev.title'       : $scope.modal.title       || '',
 					'ev.description' : $scope.modal.description || '',
 					'ev.local'       : $scope.modal.local       || '',
-					'ev.eventdate'   : $scope.modal.eventdate   || (day+'/'+month+'/'+year),
-					'ev.eventtime'   : $scope.modal.eventtime   || '',
-					'ev.remind'      : $scope.modal.remind      || 2 
+					'ev.eventDate'   : $scope.modal.eventdate   || (day+'/'+month+'/'+year),
+					'ev.eventTime'   : $scope.modal.eventtime   || '',
+					'ev.remind'      : $scope.modal.remind      || 2,
 				};
+
+				var index = 0;
+				for(var i in $scope.participants.values)
+					if($scope.participants.values[i].length > 0)
+						post["participants["+(index++)+"].email"] = $scope.participants.values[i];
 
 				if(parseInt($scope.modal.id) > 0)
 					post["ev.id"] = $scope.modal.id;
@@ -331,7 +392,11 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 				$http.post('/event/save',post,{
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 				}).success(function(data){
+					var eventdate = {}
+					eventdate[data.eventdate] = 1;
+
 					$rootScope.$broadcast('eventUpdate',data);
+					$rootScope.$broadcast('markDaysWithEvents',eventdate);
 					$scope.close();
 				}).error(function(data){
 					console.log(data);
@@ -348,6 +413,18 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 				});
 			};
 
+			$scope.participants.add = function(){
+				$scope.participants.fields.push($scope.participants.nextid++);
+				$scope.participants.values.push('');
+			};
+
+			$scope.participants.remove = function(){
+				if($scope.participants.fields.length > 1){
+					$scope.participants.fields.pop();
+					$scope.participants.values.pop();
+				}
+			};
+
 
 
 			$rootScope.$on('modalLoadData',function(event,data){
@@ -358,6 +435,20 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 				$scope.modal.eventdate   = data.eventdate   || '';
 				$scope.modal.eventtime   = data.eventtime   || '';
 				$scope.modal.remind      = data.remind      || '';
+
+				$scope.participants.nextid = data.participants.length+1;
+				$scope.participants.fields = [];
+				$scope.participants.values = [];
+
+				if(data.participants.length > 0) { 
+					for(var i in data.participants) {
+						$scope.participants.fields.push($scope.participants.nextid++);
+						$scope.participants.values.push(data.participants[i]);
+					}
+				} else {
+					$scope.participants.fields.push($scope.participants.nextid++);
+					$scope.participants.values.push("");
+				}
 			});
 
 			$rootScope.$on('openModal',function(){
@@ -365,10 +456,11 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 			});
 		}],
 		'link' : function(scope, elem, attr, ctrl){
-			var bkg   = $('<div />');
-			var modal = $('<div />');
-			var close = $('<div />');
-			var bar   = $('<div />');
+			var bkg          = $('<div />');
+			var modal        = $('<div />');
+			var close        = $('<div />');
+			var bar          = $('<div />');
+			var participants = $('<div />');
 
 			bkg.addClass('event-modal-bkg')
 			   .html('&nbsp;')
@@ -436,13 +528,18 @@ app.directive('eventModal',['$rootScope','$compile','$http',function($rootScope,
 				});
 			});
 
+
+
+			var inputParticipants = modal.find('[event-replicate]');
+			var htmlParticipants  = modal.find('[event-replicate]').find('input').attr("ng-repeat",inputParticipants.attr('event-replicate'));
+
+
+
 			var dom      = $('<div />').addClass('event-modal').append(bkg).append(modal);
 			var linker   = $compile(dom);
 			var compiled = linker(scope);
 
 			$(elem).replaceWith(compiled);
-
-			console.log('Compiling MODAL - FINISHED');
 		}
 	}
 }]);

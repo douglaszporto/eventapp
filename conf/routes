@@ -6,12 +6,12 @@
 GET     /                                       Application.index
 
 # Operações sobre Eventos
-GET		/event/list								EventDate.List
-GET		/event/list/{month}						EventDate.MonthResume
-GET		/event/date/{year}/{month}/{day}		EventDate.OnDate
-GET		/event/get/{id}							EventDate.Load
-POST	/event/save								EventDate.Save
-DELETE	/event/delete/{id}						EventDate.Delete
+GET		/event/list								EventDate.list
+GET		/event/list/{year}/{month}				EventDate.monthResume
+GET		/event/date/{year}/{month}/{day}		EventDate.onDate
+GET		/event/get/{id}							EventDate.load
+POST	/event/save								EventDate.save
+DELETE	/event/delete/{id}						EventDate.delete
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

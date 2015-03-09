@@ -19,7 +19,7 @@
 			<td class="dayname">Sáb</td>
 		</tr>
 		<tr ng-repeat="week in now.calendar">
-			<td class="day action" ng-repeat="date in week" ng-click="select(date.date)" ng-class="{'other-month':date.otherMonth,'is-today':date.isToday,'selected':date.timestamp == now.selectedTime}">{{date.day}}</td>
+			<td class="day action" ng-repeat="date in week" ng-click="select(date.date)" ng-class="{'other-month':date.otherMonth,'is-today':date.isToday,'has-event':date.hasEvent,'selected':date.timestamp == now.selectedTime}">{{date.day}}</td>
 		</tr>
 	</table>
 	<div id="date-details">
@@ -32,8 +32,8 @@
 			</div><br/>
 		</div>
 		<div id="date-details-eventlist">
-			<div id="date-details-eventlist-loading" ng-class="{'active':$root.loadingEvents}">A carregar eventos</div>
-			<div ng-repeat="event in eventlist" class="date-details-event-wrapper" ng-class="{'active':!$root.loadingEvents}" ng-click="editEvent(event.id)">
+			<div id="date-details-eventlist-loading" ng-class="{'active':$root.loadingEvents > 0}">A carregar eventos</div>
+			<div ng-repeat="event in eventlist" class="date-details-event-wrapper" ng-class="{'active':$root.loadingEvents <= 0}" ng-click="editEvent(event.id)">
 				<div class="date-details-event-desc">{{event.title}}</div>
 				<div class="date-details-event-time">{{event.time}}</div><br />
 			</div>
@@ -59,6 +59,15 @@
 					<option value="48">Lembrar 2 dias antes</option>
 				</select>
 			</div><br />
+			<div id="mainform-participants-wrapper">
+				<label>Destinatários</label>
+				<div id="mainform-participants-list" event-replicate="field in participants.fields">
+					<input type="text" class="mainform-participants-input" ng-model="participants.values[$index]" name="mainform-email" id="mainform-email[field]" />
+					<button class="btn-action-right btn-red btn-min" ng-click="participants.remove();$event.preventDefault();"><i class="ion-minus"></i></button>
+					<button class="btn-action-right btn-green btn-min" ng-click="participants.add();$event.preventDefault();"><i class="ion-plus"></i></button>
+				</div>
+				<br />
+			</div>
 		</form>
 		<br />
 		<div class="event-model-button-wrapper">
