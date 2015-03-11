@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 
 import models.*;
 import classes.*;
+import notifiers.*;
 
 public class EventDate extends Controller {
 
@@ -98,6 +99,7 @@ public class EventDate extends Controller {
 		ev.save();
 
 		if (ev != null) {
+			Mails.NewEvent(ev);
 			renderJSON(ev, EventDateSerializer.getInstance());
 		} else {
 			error("Não foi possível inserir o Evento");
