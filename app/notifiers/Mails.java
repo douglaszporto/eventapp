@@ -10,7 +10,7 @@ public class Mails extends Mailer {
 
 	public static void NewEvent(EventDateModel ev) {
 		setSubject("Evento Criado - " + ev.title);
-		setFrom("EventApp <douglas.z.porto@gmail.com>");
+		setFrom("Douglas Porto <eventapp.porto@gmail.com>");
 
 		for(UserModel user : ev.participants) {
 			addRecipient(user.email);
