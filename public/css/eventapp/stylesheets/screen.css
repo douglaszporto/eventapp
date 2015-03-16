@@ -123,31 +123,37 @@ button:focus {
 }
 
 /* line 22, ../sass/_buttons.scss */
+.btn-icon {
+  font-size: 14.4px;
+  width: 40px;
+}
+
+/* line 27, ../sass/_buttons.scss */
 .btn-min {
   line-height: 25px;
   height: 25px;
   width: 25px;
 }
 
-/* line 27, ../sass/_buttons.scss */
+/* line 32, ../sass/_buttons.scss */
 .btn-action-right {
   float: right;
   margin: 5px 0 0 5px;
 }
 
-/* line 32, ../sass/_buttons.scss */
+/* line 37, ../sass/_buttons.scss */
 .btn-action-left {
   float: left;
   margin: 5px 5px 0 0;
 }
 
-/* line 37, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 .btn-green {
   background-color: #5cb85c;
   border-bottom: 3px solid #3c9e3c;
 }
 
-/* line 41, ../sass/_buttons.scss */
+/* line 46, ../sass/_buttons.scss */
 .btn-green:focus,
 .btn-green:not([disabled]):hover {
   color: #000;
@@ -155,13 +161,13 @@ button:focus {
   border-bottom: 3px solid #5cbe5c;
 }
 
-/* line 49, ../sass/_buttons.scss */
+/* line 54, ../sass/_buttons.scss */
 .btn-grey {
   background-color: #aaa;
   border-bottom: 3px solid #666;
 }
 
-/* line 53, ../sass/_buttons.scss */
+/* line 58, ../sass/_buttons.scss */
 .btn-grey:focus,
 .btn-grey:not([disabled]):hover {
   color: #000;
@@ -169,13 +175,13 @@ button:focus {
   border-bottom: 3px solid #888;
 }
 
-/* line 61, ../sass/_buttons.scss */
+/* line 66, ../sass/_buttons.scss */
 .btn-red {
   background-color: #c9302c;
   border-bottom: 3px solid #8c0905;
 }
 
-/* line 65, ../sass/_buttons.scss */
+/* line 70, ../sass/_buttons.scss */
 .btn-red:focus,
 .btn-red:not([disabled]):hover {
   color: #000;
@@ -183,13 +189,13 @@ button:focus {
   border-bottom: 3px solid #a9100c;
 }
 
-/* line 73, ../sass/_buttons.scss */
+/* line 78, ../sass/_buttons.scss */
 .btn-yellow {
   background-color: #f0ad4e;
   border-bottom: 3px solid #d08d2e;
 }
 
-/* line 77, ../sass/_buttons.scss */
+/* line 82, ../sass/_buttons.scss */
 .btn-yellow:focus,
 .btn-yellow:not([disabled]):hover {
   color: #000;
@@ -197,13 +203,13 @@ button:focus {
   border-bottom: 3px solid #f0ad4e;
 }
 
-/* line 85, ../sass/_buttons.scss */
+/* line 90, ../sass/_buttons.scss */
 .btn-blue {
   background-color: #337ab7;
   border-bottom: 3px solid #135a97;
 }
 
-/* line 89, ../sass/_buttons.scss */
+/* line 94, ../sass/_buttons.scss */
 .btn-blue:focus,
 .btn-blue:not([disabled]):hover {
   color: #000;
@@ -421,7 +427,7 @@ button:focus {
 }
 
 /* line 1, ../sass/_modal.scss */
-.event-modal-bkg {
+.modal-component-bkg {
   background-color: rgba(0, 0, 0, 0.8);
   bottom: 0;
   left: 0;
@@ -433,14 +439,14 @@ button:focus {
 }
 
 /* line 12, ../sass/_modal.scss */
-.event-modal-bkg.active {
+.modal-component-bkg.active {
   opacity: 1;
   top: 0;
   transition: opacity .3s ease;
 }
 
-/* line 19, ../sass/_modal.scss */
-.event-modal-modal {
+/* line 18, ../sass/_modal.scss */
+.modal-component {
   background-color: #fff;
   left: -1000%;
   min-width: 200px;
@@ -452,7 +458,7 @@ button:focus {
   transition: opacity .3s ease, transform .3s ease, left 0 ease .3s;
 }
 /* line 30, ../sass/_modal.scss */
-.event-modal-modal .event-modal-titlebar {
+.modal-component .modal-component-title {
   background-color: #337ab7;
   box-sizing: border-box;
   color: #fff;
@@ -463,7 +469,7 @@ button:focus {
   width: 100%;
 }
 /* line 40, ../sass/_modal.scss */
-.event-modal-modal .event-modal-titlebar .event-modal-titlebar-close {
+.modal-component .modal-component-title .modal-component-title-close {
   cursor: pointer;
   float: right;
   font-size: 10px;
@@ -472,11 +478,40 @@ button:focus {
   width: 30px;
 }
 /* line 49, ../sass/_modal.scss */
-.event-modal-modal .event-modal-titlebar .event-modal-titlebar-close:hover {
+.modal-component .modal-component-title .modal-component-title-close:hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
 /* line 54, ../sass/_modal.scss */
-.event-modal-modal #modal-loading {
+.modal-component .modal-tabs {
+  border-bottom: 1px solid #c0c0c0;
+  height: 39px;
+  line-height: 50px;
+  width: 100%;
+}
+/* line 60, ../sass/_modal.scss */
+.modal-component .modal-tabs .modal-tab {
+  border-bottom: 2px solid transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  float: left;
+  height: 39px;
+  padding-left: 10px;
+  width: 100px;
+}
+/* line 70, ../sass/_modal.scss */
+.modal-component .modal-tabs .modal-tab:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+/* line 74, ../sass/_modal.scss */
+.modal-component .modal-tabs .modal-tab.active {
+  border-bottom: 2px solid #c0c0c0;
+}
+/* line 80, ../sass/_modal.scss */
+.modal-component .modal-component-content {
+  position: relative;
+}
+/* line 84, ../sass/_modal.scss */
+.modal-component .modal-component-content .modal-loading {
   background-color: #fff;
   bottom: 0;
   left: 0;
@@ -486,37 +521,127 @@ button:focus {
   top: 100%;
   transition: opacity .3s ease, top 0s ease .3s;
 }
-/* line 65, ../sass/_modal.scss */
-.event-modal-modal #modal-loading span {
+/* line 94, ../sass/_modal.scss */
+.modal-component .modal-component-content .modal-loading span {
   left: 50%;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-/* line 73, ../sass/_modal.scss */
-.event-modal-modal #modal-loading.active {
+/* line 102, ../sass/_modal.scss */
+.modal-component .modal-component-content .modal-loading.active {
   opacity: 1;
   top: 0;
   transition: opacity 0s ease, top 0s ease 0s;
 }
+/* line 109, ../sass/_modal.scss */
+.modal-component .modal-component-content-tab {
+  box-sizing: border-box;
+}
+/* line 113, ../sass/_modal.scss */
+.modal-component .modal-component-buttons {
+  border-top: 1px solid #c0c0c0;
+  padding: 11px 20px 15px 20px;
+}
+/* line 117, ../sass/_modal.scss */
+.modal-component .modal-component-buttons button {
+  width: 100px;
+}
 
-/* line 80, ../sass/_modal.scss */
-.event-modal-modal.active {
+/* line 123, ../sass/_modal.scss */
+.modal-component.active {
   left: 50%;
   opacity: 1;
   transition: opacity .3s ease, transform .3s ease;
   transform: translate(-50%, -50%);
 }
 
-/* line 87, ../sass/_modal.scss */
-.event-model-button-wrapper {
-  box-sizing: border-box;
-  padding: 0 5% 20px 5%;
-  width: 100%;
+/* line 1, ../sass/_config.scss */
+#config-groups-list {
+  border-right: 1px solid #c0c0c0;
+  float: left;
+  height: 100%;
+  min-height: 170px;
+  width: 199px;
 }
-/* line 92, ../sass/_modal.scss */
-.event-model-button-wrapper button {
-  width: 100px;
+/* line 8, ../sass/_config.scss */
+#config-groups-list .config-groups-list-item {
+  cursor: pointer;
+  box-sizing: border-box;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+}
+/* line 16, ../sass/_config.scss */
+#config-groups-list .config-groups-list-item.selected {
+  color: #000;
+  font-weight: bold;
+}
+/* line 21, ../sass/_config.scss */
+#config-groups-list .config-groups-list-item:hover {
+  background-color: #7af;
+}
+/* line 25, ../sass/_config.scss */
+#config-groups-list #config-groups-data-email {
+  box-sizing: border-box;
+  font-size: 12px;
+  height: 25px;
+  margin: 10px 0 10px 10px;
+  width: 70%;
+}
+
+/* line 34, ../sass/_config.scss */
+.config-button {
+  width: 70px;
+}
+
+/* line 38, ../sass/_config.scss */
+.config-button-icon {
+  line-height: 25px;
+  height: 25px;
+  margin: 10px 10px 0 0;
+  width: 25px;
+}
+
+/* line 44, ../sass/_config.scss */
+#config-groups-content {
+  float: left;
+  width: 450px;
+  padding: 5px 10px;
+}
+/* line 49, ../sass/_config.scss */
+#config-groups-content #config-groups-data-email {
+  box-sizing: border-box;
+  height: 30px;
+  margin-top: 5px;
+  width: 295px;
+}
+/* line 56, ../sass/_config.scss */
+#config-groups-content #config-groups-participants {
+  border-top: 1px solid #c0c0c0;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+/* line 61, ../sass/_config.scss */
+#config-groups-content #config-groups-participants .config-groups-participants-item {
+  box-sizing: border-box;
+  float: left;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 5px;
+  width: 50%;
+}
+/* line 69, ../sass/_config.scss */
+#config-groups-content #config-groups-participants .config-groups-participants-item .config-groups-remove {
+  color: #d00;
+  cursor: pointer;
+  float: right;
+  height: 20px;
+  width: 20px;
+}
+/* line 78, ../sass/_config.scss */
+#config-groups-content #config-groups-participants .config-groups-participants-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* line 1, ../sass/_form.scss */
@@ -573,21 +698,56 @@ button:focus {
   width: 41%;
 }
 /* line 54, ../sass/_form.scss */
+#mainform #mainform-group {
+  margin-bottom: 5px;
+  margin-left: 5%;
+  width: 90%;
+}
+/* line 60, ../sass/_form.scss */
+#mainform #mainform-otherParticipant {
+  margin: 5px 0 10px 20px;
+  width: 45%;
+}
+/* line 65, ../sass/_form.scss */
+#mainform .mainform-participants-button {
+  height: 25px;
+  line-height: 25px;
+  margin-left: 0;
+  margin-right: 5%;
+  width: 80px;
+}
+/* line 73, ../sass/_form.scss */
+#mainform #mainform-participants-label {
+  margin-top: 10px;
+  padding-left: 25px;
+}
+/* line 78, ../sass/_form.scss */
+#mainform #mainform-participants-others {
+  float: left;
+  margin-top: 10px;
+  padding-left: 25px;
+}
+/* line 84, ../sass/_form.scss */
 #mainform #mainform-participants-wrapper {
   border-top: 1px solid #c0c0c0;
-  border-bottom: 1px solid #c0c0c0;
-  margin-top: 11px;
+  margin-top: 10px;
   padding-top: 10px;
 }
-/* line 61, ../sass/_form.scss */
-#mainform #mainform-participants-list {
-  float: right;
-  margin-right: 5%;
-  width: 75%;
-  margin-bottom: 20px;
+/* line 89, ../sass/_form.scss */
+#mainform #mainform-participants-wrapper #mainform-participants-list {
+  margin: 0px 5% 20px 5%;
+  width: 90%;
 }
-/* line 68, ../sass/_form.scss */
-#mainform .mainform-participants-input {
-  width: 80%;
-  margin-right: 0%;
+/* line 94, ../sass/_form.scss */
+#mainform #mainform-participants-wrapper .mainform-participants {
+  float: left;
+  height: 20px;
+  line-height: 20px;
+  width: 50%;
+}
+/* line 100, ../sass/_form.scss */
+#mainform #mainform-participants-wrapper .mainform-participants .mainform-participants-remove {
+  color: #d00;
+  cursor: pointer;
+  padding-left: 5px;
 }

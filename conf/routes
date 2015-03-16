@@ -13,6 +13,14 @@ GET		/event/get/{id}							EventDate.load
 POST	/event/save								EventDate.save
 DELETE	/event/delete/{id}						EventDate.delete
 
+# Operações sobre Grupos
+GET		/group/list								Group.list
+GET		/group/get/{id}							Group.load
+POST	/group/save								Group.save
+POST	/group/{id}/add							Group.addParticipant
+DELETE	/group/delete/{id}						Group.delete
+DELETE	/group/{id}/remove/{emailId}			Group.removeParticipant
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

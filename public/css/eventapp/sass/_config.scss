@@ -1,0 +1,82 @@
+#config-groups-list{
+	border-right: 1px solid $line-color;
+	float:        left;
+	height:       100%;
+	min-height:   170px;
+	width:        199px;
+
+	.config-groups-list-item{
+		cursor:       pointer;
+		box-sizing:   border-box;
+		height:       30px;
+		line-height:  30px;
+		padding-left: 10px;
+	}
+
+	.config-groups-list-item.selected{
+		color:       #000;
+		font-weight: bold;
+	}
+
+	.config-groups-list-item:hover{
+		background-color: #7af;
+	}
+
+	#config-groups-data-email{
+		box-sizing: border-box;
+		font-size:  $font-size;
+		height:     25px;
+		margin:     10px 0 10px 10px;
+		width:      70%;
+	}
+}
+
+.config-button{
+	width: 70px;
+}
+
+.config-button-icon{
+	@include row-height(25px);
+	margin:  10px 10px 0 0;
+	width:   25px;
+}
+
+#config-groups-content{
+	float:   left;
+	width:   450px;
+	padding: 5px 10px;
+
+	#config-groups-data-email{
+		box-sizing: border-box;
+		height:     30px;
+		margin-top: 5px;
+		width:      295px;
+	}
+
+	#config-groups-participants{
+		border-top:  1px solid $line-color;
+		margin-top:  10px;
+		padding-top: 10px;
+
+		.config-groups-participants-item{
+			box-sizing:   border-box;
+			float:        left;
+			height:       20px;
+			line-height:  20px;
+			padding-left: 5px;
+			width:        50%;
+
+			.config-groups-remove{
+				color:  #d00;
+				cursor: pointer;
+				float:  right;
+				height: 20px;
+				width:  20px;
+			}
+		}
+
+		.config-groups-participants-item:hover{
+			background-color: rgba(0,0,0,0.1);
+		}
+	}
+}
